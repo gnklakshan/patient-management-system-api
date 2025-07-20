@@ -4,10 +4,13 @@ import com.patientmanagement.patientservice.dto.PatientResponseDTO;
 import com.patientmanagement.patientservice.dto.patientRequestDTO;
 import com.patientmanagement.patientservice.service.PatientService;
 import jakarta.validation.Valid;
+import jakarta.validation.groups.Default;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/patients")
@@ -29,5 +32,11 @@ public class patientController {
     public ResponseEntity<PatientResponseDTO> createNewPatient(@Valid @RequestBody patientRequestDTO patientRequestDTO){
     PatientResponseDTO response = patientService.createPatient(patientRequestDTO);
     return ResponseEntity.ok(response);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<PatientResponseDTO> updatePatient(@Valid @Validated(Default.class) @RequestBody patientRequestDTO patientRequestDTO, @PathVariable UUID id){
+        PatientResponseDTO response = patientService.updatePatient(id,patientRequestDTO);
+        return ResponseEntity.ok(response);
     }
 }
