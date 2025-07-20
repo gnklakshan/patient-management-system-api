@@ -2,6 +2,7 @@ package com.patientmanagement.patientservice.controller;
 
 import com.patientmanagement.patientservice.dto.PatientResponseDTO;
 import com.patientmanagement.patientservice.dto.patientRequestDTO;
+import com.patientmanagement.patientservice.dto.validators.createPatientValidationGroup;
 import com.patientmanagement.patientservice.service.PatientService;
 import jakarta.validation.Valid;
 import jakarta.validation.groups.Default;
@@ -29,13 +30,13 @@ public class patientController {
     }
 
     @PostMapping("/new-patient")
-    public ResponseEntity<PatientResponseDTO> createNewPatient(@Valid @RequestBody patientRequestDTO patientRequestDTO){
+    public ResponseEntity<PatientResponseDTO> createNewPatient(@Validated({Default.class, createPatientValidationGroup.class}) @RequestBody patientRequestDTO patientRequestDTO){
     PatientResponseDTO response = patientService.createPatient(patientRequestDTO);
     return ResponseEntity.ok(response);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<PatientResponseDTO> updatePatient(@Valid @Validated(Default.class) @RequestBody patientRequestDTO patientRequestDTO, @PathVariable UUID id){
+    public ResponseEntity<PatientResponseDTO> updatePatient(@Validated(Default.class) @RequestBody patientRequestDTO patientRequestDTO, @PathVariable UUID id){
         PatientResponseDTO response = patientService.updatePatient(id,patientRequestDTO);
         return ResponseEntity.ok(response);
     }
