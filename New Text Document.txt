@@ -1,0 +1,11 @@
+1 create empty project
+2 from that create new module and initiate spring boot application
+		spring web, postgress, validation, Lombok,spring dev tool
+3 add h2 database dependency tothe pom.xml -  that’s a smart move for development and testing
+4 - Configured application.properties for:
+- H2 console access
+- In-memory DB with credentials
+- JPA dialect & schema auto-update
+- Custom port 4000
+- 
+here we not connect to actual postgress db, instead use h2 db for easy testing <once application close , data will be lose>
